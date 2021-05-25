@@ -46,9 +46,7 @@
     <Folder Include="wwwroot\Catstagram\General\css\" />
     <Folder Include="wwwroot\Catstagram\General\images\" />
     <Folder Include="wwwroot\Catstagram\General\script\" />
-    <Folder Include="wwwroot\Catstagram\User\css\" />
     <Folder Include="wwwroot\Catstagram\User\images\" />
-    <Folder Include="wwwroot\Catstagram\User\script\" />
   </ItemGroup>
 
 </Project>
