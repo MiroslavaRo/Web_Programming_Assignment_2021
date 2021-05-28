@@ -42,11 +42,16 @@
 
   <ItemGroup>
     <Folder Include="ViewModels\" />
-    <Folder Include="Views\Catstagram\" />
-    <Folder Include="wwwroot\Catstagram\General\css\" />
-    <Folder Include="wwwroot\Catstagram\General\images\" />
-    <Folder Include="wwwroot\Catstagram\General\script\" />
-    <Folder Include="wwwroot\Catstagram\User\images\" />
+    <Folder Include="Views\Account\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.6">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
 </Project>

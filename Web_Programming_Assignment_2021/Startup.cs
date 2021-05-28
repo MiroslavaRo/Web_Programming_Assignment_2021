@@ -1,6 +1,8 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -8,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Web_Programming_Assignment_2021.Data;
 
 namespace Web_Programming_Assignment_2021
 {
@@ -21,9 +24,22 @@ namespace Web_Programming_Assignment_2021
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
+
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+            // AUTHENTICATION: Enable cookie authentication
+            services
+                .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie();
+
+            services
+                .AddControllersWithViews();
+
+           // services.AddTransient<IBlogService, BlogService>();
+
+            services.AddDbContext<CatstagramContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("CatstagramConnectionString")));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,13 +60,14 @@ namespace Web_Programming_Assignment_2021
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Catstagram}/{action=Index}/{id?}");
             });
         }
     }

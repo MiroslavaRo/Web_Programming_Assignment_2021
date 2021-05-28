@@ -1,0 +1,42 @@
+﻿@model MyBlog.Models.Home.HomeViewModel
+
+@{ Layout = "_UserLayout"; }
+
+
+<link href="/Catstagram/User/css/profile.css" rel="stylesheet">
+
+
+<div class="gallery">
+
+    <div class="gallery-item" tabindex="0">
+        <div class="gallery-item-author">
+            <img class="author-photo" src="">
+            <div class="author-nikname"></div>
+            <p class="publication-time"></p>
+        </div>
+        <div class="gallery-item-post">
+            <img src="" class="gallery-image" alt="">
+
+            <div class="gallery-item-info">
+
+                <ul>
+                    <li class="gallery-item-likes"><span class="visually-hidden">Likes:</span><i class="fas fa-heart" aria-hidden="true"></i> 56</li>
+
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!--
+        <main id="main">
+            @RenderBody()
+        </main><!-- End #main -->
+
+<a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
+
+<!-- Vendor JS Files -->
+<script src="/Catstagram/User/script/main.js"></script>
+
+
+@RenderSection("Scripts", required: false)
