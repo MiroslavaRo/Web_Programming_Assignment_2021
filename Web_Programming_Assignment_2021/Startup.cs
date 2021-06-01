@@ -11,6 +11,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Web_Programming_Assignment_2021.Data;
+using Web_Programming_Assignment_2021.Services;
+using Web_Programming_Assignment_2021.Services.Interfaces;
 
 namespace Web_Programming_Assignment_2021
 {
@@ -34,11 +36,11 @@ namespace Web_Programming_Assignment_2021
 
             services
                 .AddControllersWithViews();
-
-           // services.AddTransient<IBlogService, BlogService>();
-
-            services.AddDbContext<CatstagramContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("CatstagramConnectionString")));
+            services.AddTransient<IBlogService, BlogService>();
+            services.AddDbContext<MyBlogContext>(options =>
+            options.UseSqlServer(Configuration.GetConnectionString("CatstagramConnectionString")));
+          //  services.AddDbContext<CatstagramContext>(options =>
+              //  options.UseSqlServer(Configuration.GetConnectionString("CatstagramConnectionString")));
 
         }
 
@@ -67,7 +69,7 @@ namespace Web_Programming_Assignment_2021
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Catstagram}/{action=Index}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }

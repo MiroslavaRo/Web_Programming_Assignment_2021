@@ -1,8 +1,49 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@model Web_Programming_Assignment_2021.Models.Home.HomeViewModel
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+@{ ViewData["Title"] = "Home Page"; }
+
+
+<!-- ======= Works Section ======= -->
+
+    <div class="container">
+        <div class="row mb-5 align-items-center">
+            <div class="col-md-12 col-lg-6 mb-4 mb-lg-0" data-aos="fade-up">
+                <h2>Catstagram</h2>
+                <p class="mb-0">The best social media</p>
+            </div>
+        </div>
+        <!--<div id="portfolio-grid" class="row no-gutter" data-aos="fade-up" data-aos-delay="200">
+            foreach (var post in Model)
+            {
+
+                <img src="/Catstagram/User/images/posts/post.PostId/post.PhotoFile">
+                <!--<div class="item col-sm-6 col-md-4 col-lg-4 mb-4">
+
+                    <!--  <div class="author-nikname">post.User.Username</div>
+            <div class="publication-time"></div>
+                      <a href="/home/post/post.PostId" class="item-wrap fancybox">
+                          <div class="work-info">
+                              <h3>post.Title</h3>
+                              <span>post.CategoryTitle</span>
+                          </div>
+                          <img class="img-fluid" src="/Catstagram/User/images/posts/post.PostId/post.PhotoFile">
+                      </a>
+                </div>
+            }
+        </div>-->
+        <div id="portfolio-grid" class="row no-gutter" data-aos="fade-up" data-aos-delay="200">
+            @foreach (var post in Model.Posts)
+            {
+                <div class="item @post.CategorySlug col-sm-6 col-md-4 col-lg-4 mb-4">
+                    <a href="/home/post/@post.Id" class="item-wrap fancybox">
+                        <div class="work-info">
+                            <h3>@post.Title</h3>
+                            <span>@post.CategoryTitle</span>
+                        </div>
+                        <img class="img-fluid" src="/uploads/@post.Photo">
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+

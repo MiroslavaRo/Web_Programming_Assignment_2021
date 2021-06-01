@@ -8,6 +8,10 @@ namespace Web_Programming_Assignment_2021.Models
 {
     public class User
     {
+        public User()
+        {
+            Posts = new HashSet<Post>();
+        }
         public int UserId { get; set; }
         [Required]
         public string Username { get; set; }
@@ -15,11 +19,11 @@ namespace Web_Programming_Assignment_2021.Models
         [Required]
         public string Password { get; set; }
 
-        public string Avatar { get; set; }
+        public string AvatarFile { get; set; }
 
         public string Message { get; set; }
         public string Email { get; set; }
 
-        public ICollection<Post> Posts { get; set; }
+        public virtual ICollection<Post> Posts { get; set; }
     }
 }

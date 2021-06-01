@@ -23,7 +23,7 @@ namespace Web_Programming_Assignment_2021.Data
                            Username="_Cutie_34",
                            Password="PaS_S",
                            Email="katrin@gmail.com",
-                           Avatar=null
+                           AvatarFile="flower.jpg"
                        },
                         new User
                         {
@@ -31,7 +31,16 @@ namespace Web_Programming_Assignment_2021.Data
                             Username = "LolitaKit",
                             Password = "Ger34_",
                             Email = "lolita_hanta@gmail.com",
-                            Avatar="pic_1.jpg"
+                            AvatarFile= "beautiful.jpg"
+                        }
+                        ,
+                        new User
+                        {
+                            UserId = 3,
+                            Username = "StrangeCat",
+                            Password = "parol",
+                            Email = "Tolik@gmail.com",
+                            AvatarFile = null
                         }
 
                    );
@@ -48,7 +57,7 @@ namespace Web_Programming_Assignment_2021.Data
                             Hashtag ="#cute #cutie #kitty",
                             DateCreated = DateTime.Now,
                             DateModified = DateTime.Now,
-                            Photo = "img_1.jpg",
+                            PhotoFile = "cute.jpg",
                             UserId=1
                         },
                           new Post
@@ -57,7 +66,7 @@ namespace Web_Programming_Assignment_2021.Data
                               Hashtag = "#cute #happy",
                               DateCreated = DateTime.Now,
                               DateModified = DateTime.Now,
-                              Photo = "img_2.jpg",
+                              PhotoFile = "flower.jpg",
                               UserId = 1
                           },
                             new Post
@@ -66,7 +75,7 @@ namespace Web_Programming_Assignment_2021.Data
                                 Hashtag = "#kitty",
                                 DateCreated = DateTime.Now,
                                 DateModified = DateTime.Now,
-                                Photo = "img_3.jpg",
+                                PhotoFile = "beautiful.jpg",
                                 UserId = 2
                             }
 

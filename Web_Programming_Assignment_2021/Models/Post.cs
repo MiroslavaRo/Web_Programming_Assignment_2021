@@ -10,10 +10,8 @@ namespace Web_Programming_Assignment_2021.Models
     {
         public int PostId { get; set; }
 
-        [StringLength(60, MinimumLength = 3)]
-        [Required]
         public string Comment { get; set; }
-        public string Photo { get; set; }   
+        public string PhotoFile { get; set; }   
         public string Hashtag { get; set; }
 
 

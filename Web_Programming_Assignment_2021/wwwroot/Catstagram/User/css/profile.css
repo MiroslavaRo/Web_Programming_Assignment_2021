@@ -195,15 +195,22 @@ img {
     font-weight: 600;
 }
 
-/* Gallery Section */
-
 .gallery {
     display: flex;
     flex-wrap: wrap;
     margin: -1rem -1rem;
     padding-bottom: 3rem;
+    border: 1.5px black;
 }
-
+.author-photo {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+/*
+.author-photo .author-nikname .publication-time{
+    display:inline;
+}*/
 .gallery-item {
     position: relative;
     flex: 1 0 22rem;
