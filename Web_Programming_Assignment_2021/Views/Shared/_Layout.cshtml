@@ -18,7 +18,7 @@
     <link href="/Site/assets/vendor/icofont/icofont.min.css" rel="stylesheet">
     <link href="/Site/assets/vendor/aos/aos.css" rel="stylesheet">
     <link href="/Site/assets/vendor/line-awesome/css/line-awesome.min.css" rel="stylesheet">
-    <link href="/Site/assets/vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="/Site/assets/vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet"> 
 
     <!-- Template Main CSS File -->
     <link href="/Site/assets/css/style.css" rel="stylesheet">
@@ -115,24 +115,24 @@
                         <ul class="vertical-nav-menu">
                             <li class="app-sidebar__heading">Catstagram</li>
                             <li>
-                                <a href="/Admin" class="mm-active">
+                                <a href="/Home/Index" class="ref mm-active">
                                     <i class="metismenu-icon pe-7s-home"></i>
                                     Wall
                                 </a>
                             </li>
                             <li class="app-sidebar__heading">My Profile</li>
+                          <!--
                             <li>
-                                <a href="/Admin/Categories">
+                                <a href="/Home/Posts">
                                     <i class="metismenu-icon pe-7s-portfolio"></i>
                                     Profile
                                 </a>
-                            </li>
+                            </li>-->
                             <li>
-                                <a href="/Admin/Posts">
+                                <a href="/Home/Posts" class="ref">
                                     <i class="metismenu-icon pe-7s-photo"></i>
                                     Posts
                                 </a>
-
                             </li>
 
                         </ul>
@@ -181,6 +181,13 @@
 
     <!-- Vendor JS Files -->
     <script src="/Catstagram/User/script/main.js"></script>
+
+    <script>
+        var links = document.getElementsByClassName("ref");
+        foreach(var link in links) {
+
+        }
+    </script>
 
     @RenderSection("Scripts", required: false)
 </body>

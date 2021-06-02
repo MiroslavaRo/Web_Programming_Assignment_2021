@@ -10539,9 +10539,14 @@ a, button, .btn {
 
 .fixed-sidebar .app-main .app-main__outer {
     z-index: 9;
-    padding-left: 280px
+    padding-left: 120px
 }
-
+@media(max-width:640){
+    .fixed-sidebar .app-main .app-main__outer {
+        z-index: 9;
+        padding-left: 280px
+    }
+}
 .fixed-sidebar.fixed-header .app-sidebar .app-header__logo {
     display: none
 }
@@ -10694,9 +10699,13 @@ a, button, .btn {
     }
 
 .closed-sidebar.fixed-sidebar .app-main__outer {
-    padding-left: 80px
+    padding-left: 20px
 }
-
+@media (max-width:640px){
+    .closed-sidebar.fixed-sidebar .app-main__outer {
+        padding-left: 80px
+    }
+}
 .closed-sidebar.fixed-header:not(.fixed-sidebar) .app-sidebar .app-header__logo {
     visibility: hidden
 }

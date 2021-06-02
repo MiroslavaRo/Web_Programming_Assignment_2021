@@ -10,13 +10,13 @@ Flexbox and floats are used as a fallback so that browsers which don't support g
 
 /* Base Styles */
 
-
+/*
 a.navbar-brand {
     white-space: normal;
     text-align: center;
     word-break: break-all;
 }
-
+*/
 /* Provide sufficient contrast against white background */
 a {
     color: #0366d6;
