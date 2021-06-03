@@ -30,7 +30,10 @@
                 </div>
                 <hr />
                 <div class="gallery-item" tabindex="0">
-                    <img  src="/Catstagram/User/images/posts/@post.PostId.ToString()/@post.PhotoFile" class="gallery-image" >
+                    <a href="/Home/Details/@post.PostId">
+                        <img src="/Catstagram/User/images/posts/@post.PostId.ToString()/@post.PhotoFile" class="gallery-image">
+                    </a>
+
                 </div>
                 <hr />
                 <div class="creation-time">Posted on @post.DateCreated</div>

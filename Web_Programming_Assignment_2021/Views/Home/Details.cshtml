@@ -4,74 +4,96 @@
 
 @{ ViewData["Title"] = "Details"; }
 
-
-<style>
-    .column1 .column2{
-        float: left;
-        padding: 10px;
-        height: 300px; /* Should be removed. Only for demonstration */
-    }
-    .column1 {
-        width: 650%;
-    }
-    /* Clear floats after the columns */
-    .row:after {
-        content: "";
-        display: table;
-        clear: both;
-    }
-</style>
-<h1>Post Details</h1>
-<hr />
+<h1>Details</h1>
 <div class="row">
-    <div class="column1">
-        <dl>
 
-            <dt class="col-sm-2">
-                Author
-            </dt>
-            <dd class="col-sm-10">
-                <div class="author-avatar">
-                    <img src="/Catstagram/User/images/avatars/@Model.UserId.ToString()/@Model.User.AvatarFile" class="gallery-image" alt="">
+        <div class="bs-example" style=" margin: 20px;">
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a href="#author" class="nav-link" data-toggle="tab">Author</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#post" class="nav-link active" data-toggle="tab">Post</a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane fade " id="author">
+                    <div class="profile">
+
+                        <div class="profile-image">
+
+                            <img src="/Catstagram/User/images/avatars/@Model.UserId.ToString()/@Model.User.AvatarFile" style="width:250px">
+
+                        </div>
+
+                        <div class="profile-user-settings">
+
+                            <h1 class="profile-user-name">@Model.User.Username</h1>
+
+                        </div>
+                        <div class="profile-bio">
+
+                            <h1 class="profile-user-name">@Model.User.Email</h1>
+                            <p><span class="profile-real-name">Jane Doe</span> Lorem ipsum dolor sit, amet consectetur adipisicing elit 📷✈️🏕️</p>
+
+                        </div>
+
+                    </div>
                 </div>
-                <div class="author-nikname">@Model.User.Username</div>
+                <div class="tab-pane fade show active" id="post">
+                    <div style="float:left; width:30%; margin: 10px 170px 10px 30px">
 
-            </dd>
-            <dt class="col-sm-2">
-                Created:
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.DateCreated)
-            </dd>
-            <dt class="col-sm-2">
-                Modified:
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.DateModified)
-            </dd>
-            <dt class="col-sm-2">
-                Comment:
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Comment)
-            </dd>
-        </dl>
+                        <table style="text-align:justify">
+                            <tr>
+                                <th>Created:</th>
+                                <th>Modified:</th>
+                            </tr>
+                            <tr>
+                                <td> @Html.DisplayFor(model => model.DateCreated)</td>
+                                <td> @Html.DisplayFor(model => model.DateModified)</td>
+                            </tr>
+                            <tr>
+                                <th style="color:white">
+                                    .
+                                </th>
+                            </tr>
+                            <tr>
+                                <th colspan="2">
+                                    Comment:
+                                </th>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    @Html.DisplayFor(model => model.Comment)
+                                </td>
+                            </tr>
+                            <tr>
+                                <th style="color:white">
+                                    .
+                                </th>
+                            </tr>
+                            <tr>
+                                <th colspan="2">
+                                    Hastags:
+                                </th>
+                            </tr>
 
-        <div class="form-group">
-            <label for="@Model.Comment">Comment:</label>
-            <p asp-for="@Model.Comment" class="form-control" style="height:150px"></p>
+                            <tr>
+                                <td colspan="2">
+                                    @Html.DisplayFor(model => model.Hashtag)
+                                </td>
+                            </tr>
+                        </table>
+
+                    </div>
+                    <div style="float:left;">
+                        <img src="~/Catstagram/User/images/posts/@Model.PostId.ToString()/@Model.PhotoFile" style="width:450px" />
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="@Model.Hashtag">Hastags:</label>
-            <p asp-for="@Model.Hashtag" class="form-control" style="height:150px"></p>
-        </div>
-    </div>
-    <div class="column2" style="border-left: 1.5px solid rgba(208, 214, 219, 0.50)">
-        <img src="~/Images/ProductPhotos/@Model.PostId.ToString()/@Model.PhotoFile" width="250" height="250" />
-    </div>
-
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" style="font-size:20px;">Back to List &#10509</a>
 </div>

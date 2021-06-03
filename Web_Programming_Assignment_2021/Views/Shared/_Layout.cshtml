@@ -182,17 +182,6 @@
     <!-- Vendor JS Files -->
     <script src="/Catstagram/User/script/main.js"></script>
 
-    <script>
-        function ChangeActiveRef() {
-           
-            var links = document.getElementsByClassName("ref");
-            for (j = 0; j < links.length; j++) {
-                links[j].classList.remove("mm-active");
-            }
-            this.classList.add("mm-active");
-        }
-    </script>
-
     @RenderSection("Scripts", required: false)
 </body>
 </html>

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -8,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Web_Programming_Assignment_2021.Data;
@@ -34,13 +36,13 @@ namespace Web_Programming_Assignment_2021.Controllers
         }
         public ActionResult Index()
         {
-            List<Post> posts = context.Posts.Include(a => a.User).ToList();
+            List<Post> posts = context.Posts.Include(a => a.User).OrderBy(a => a.DateCreated).ToList();
             return View(posts);
         }
 
         public ActionResult Posts()
         {
-            List<Post> posts = context.Posts.Include(a => a.User).ToList();
+            List<Post> posts = context.Posts.Include(a => a.User).OrderBy(a => a.DateCreated).ToList();
             return View(posts);
         }
 
@@ -84,7 +86,7 @@ namespace Web_Programming_Assignment_2021.Controllers
                 originalPost.Comment = editedPost.Comment;
                 originalPost.Hashtag = editedPost.Hashtag;
                 editedPost.PhotoFile = originalPost.PhotoFile;
-
+                editedPost.DateCreated = originalPost.DateCreated;
                 originalPost.DateModified= editedPost.DateModified= DateTime.Now;
 
 
@@ -93,97 +95,92 @@ namespace Web_Programming_Assignment_2021.Controllers
             }
             return View(viewModel);
         } 
-        /*
-        [Authorize]
+        
+       // [Authorize]
         public IActionResult Create()
         {
-            CreateProductViewModel createProductViewModel = new CreateProductViewModel();
-            createProductViewModel.Suppliers = GetSuppliers();
-
+            PostCreateViewModel createProductViewModel = new PostCreateViewModel();
             return View(createProductViewModel);
         }
 
 
         [HttpPost]
-        public IActionResult Create(CreateProductViewModel model, IFormFile photo)
+        public IActionResult Create(PostCreateViewModel model)
         {
-            ProductChange changeLog = new ProductChange();
-            changeLog.CreatedBy = this.HttpContext.User.Identity.Name;
-            changeLog.CreatedOn = DateTime.Now.ToString("yyyy/MM/dd hh:mm:ss tt");
-            changeLog.EditedBy = changeLog.CreatedBy;
-            changeLog.EditedOn = changeLog.CreatedOn;
-            context.ProductChanges.Add(changeLog);
-            context.SaveChanges();
-            model.ProductChangeId = context.ProductChanges.First(a => a.CreatedOn == changeLog.CreatedOn).ProductChangeId;
 
+            model.CreatedOn = DateTime.Now;
+            model.EditedOn = DateTime.Now;
+            model.UserName = this.HttpContext.User.Identity.Name;
 
-
-            Product product = new Product();
-            product.ProductName = model.ProductName;
-            product.ProductChangeId = model.ProductChangeId;
-            model.Suppliers = GetSuppliers();
-            product.SupplierId = model.SelectedSupplierId;
-            context.Products.Add(product);
+            Post post = new Post();
+            post.Comment = model.Comment;
+            post.Hashtag = model.Hashtag;
+            post.DateCreated = model.CreatedOn;
+            post.DateModified = model.EditedOn;
+            //  post.UserId = context.Users.FirstOrDefault(a => a.Username == model.UserName).UserId;
+            post.UserId = context.Users.FirstOrDefault(a => a.Username == "LolitaKit").UserId;
+            context.Posts.Add(post);
             context.SaveChanges();
 
-
-            if (photo != null)
+            var photo = model.photo;
+            if (photo != null&&photo.Length<(2*1024))
             {
-                model.ErrorMessageVisible = false;
-                string wwwRootPath = hostEnvironment.WebRootPath;
-                string imagesPath = configuration.GetValue<string>("ProductPhotosLocation");
+                    model.ErrorMessageVisible = false;
+                    string wwwRootPath = hostEnvironment.WebRootPath;
+                    string imagesPath = configuration.GetValue<string>("PostLocation");
 
-                string directoryPath = Path.Combine(imagesPath, product.ProductId.ToString());
-                if (!Directory.Exists(directoryPath))
-                {
-                    Directory.CreateDirectory(directoryPath);
-                }
+                    string directoryPath = Path.Combine(imagesPath, post.PostId.ToString());
+                    if (!Directory.Exists(directoryPath))
+                    {
+                        Directory.CreateDirectory(directoryPath);
+                    }
 
-                string fileName = string.Format("{0}.jpg", Path.GetFileNameWithoutExtension(Path.GetRandomFileName()));
-                context.Products.FirstOrDefault(a => a == product).ImageFileName = fileName;
-                string filePath = Path.Combine(directoryPath, fileName);
-                using (Stream fileStream = new FileStream(filePath, FileMode.Create))
-                {
-                    photo.CopyTo(fileStream);
-                }
+                    string fileName = string.Format($"{Path.GetFileNameWithoutExtension(Path.GetRandomFileName())}.jpg");
+                    context.Posts.FirstOrDefault(a => a == post).PhotoFile = fileName;
+                    string filePath = Path.Combine(directoryPath, fileName);
+                    using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        photo.CopyTo(fileStream);
+                    }
 
 
-                context.SaveChanges();
-                return RedirectToAction("Index");
-
+                    context.SaveChanges();
+                    return RedirectToAction("Index");
+                
+               
             }
             else
             {
+            
+                context.Posts.Remove(context.Posts.FirstOrDefault(a => a == post));
                 context.SaveChanges();
-                return RedirectToAction("Index");
+                model.ErrorMessageVisible = true;
+                return View(model);
             }
 
         }
 
-
-        [Authorize]
+        
+       // [Authorize]
 
         public ActionResult Delete(int id)
         {
-            Product product = context.Products
-                .Include(a => a.Supplier).Include(a => a.ProductChange)
-               .FirstOrDefault(a => a.ProductId == id);
+            Post post = context.Posts.FirstOrDefault(a => a.PostId == id);
 
-            return View(product);
+            return View(post);
 
 
         }
        
 
         [HttpPost]
-        public ActionResult Delete(Product product)
+        public ActionResult Delete(Post post)
         {
-            Product productToDelete = context.Products.Include(a => a.ProductChange).FirstOrDefault(a => a.ProductId == product.ProductId);
-            ProductChange deletelog = context.ProductChanges.FirstOrDefault(a => a.ProductChangeId == productToDelete.ProductChangeId);
+            Post postToDelete = context.Posts.FirstOrDefault(a => a.PostId == post.PostId);
+           
+            string imagesPath = configuration.GetValue<string>("PostLocation");
 
-            string imagesPath = configuration.GetValue<string>("ProductPhotosLocation");
-
-            string directoryPath = Path.Combine(imagesPath, product.ProductId.ToString());
+            string directoryPath = Path.Combine(imagesPath, post.PostId.ToString());
             if (Directory.Exists(directoryPath))
             {
                 var files = Directory.GetFiles(directoryPath);
@@ -193,13 +190,11 @@ namespace Web_Programming_Assignment_2021.Controllers
                 }
                 Directory.Delete(directoryPath);
             }
-            context.ProductChanges.Remove(deletelog);
-            context.Products.Remove(productToDelete);
+            context.Posts.Remove(postToDelete);
             context.SaveChanges();
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Posts");
 
         }
-        */
     }
 }

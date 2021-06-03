@@ -6,7 +6,7 @@
 @{ ViewData["Title"] = "Posts"; }
 
 <div class="app-page-title"style="background-color: rgba(221, 224, 224, 0.20)">
-    <div class="page-title-wrapper" >
+    <div class="page-title-wrapper">
         <div class="page-title-heading">
             <div class="page-title-icon">
                 <i class="pe-7s-photo icon-gradient bg-mean-fruit">
@@ -20,7 +20,7 @@
             </div>
         </div>
         <div class="page-title-actions">
-            <a href="/Admin/EditPost/0" data-toggle="tooltip" title="" data-placement="bottom" class="btn btn-success" data-original-title="Add new post">
+            <a asp-action="Create" data-toggle="tooltip" title="" data-placement="bottom" class="btn btn-success" data-original-title="Add new post">
                 Add new post
             </a>
         </div>
@@ -42,31 +42,32 @@
                                 <th>Created</th>
                                 <th>Modified</th>
                                 <th>Photo</th>
-                                <th>Action</th>
+                                <th colspan="2">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach (var post in Model)
                             {
-                                <tr>
-                                    <td>@post.PostId</td>
-                                    <td>@post.Comment</td>
-                                    <td>@post.Hashtag</td>
-                                    <td>@post.User.Username</td>
-                                    <td>@post.DateCreated</td>
-                                    <td>@post.DateModified</td>
-                                    <td class="text-center">
-                                        @if (string.IsNullOrEmpty(post.PhotoFile))
-                                        {
-                                            <img width="40" class="rounded-circle" src="/Catstagram/User/images/NotFound.png" alt="">
-                                        }
-                                        else
-                                        {
-                                            <img width="40" height="40" class="rounded-circle" src="/Catstagram/User/images/posts/@post.PostId.ToString()/@post.PhotoFile" alt="">
-                                        }
-                                    </td>
-                                    <td><a class="mb-2 mr-2 btn btn-primary" href="/Home/Edit/@post.PostId">Edit</a></td>
-                                </tr>
+                            <tr>
+                                <td>@post.PostId</td>
+                                <td>@post.Comment</td>
+                                <td>@post.Hashtag</td>
+                                <td>@post.User.Username</td>
+                                <td>@post.DateCreated</td>
+                                <td>@post.DateModified</td>
+                                <td class="text-center">
+                                    @if (string.IsNullOrEmpty(post.PhotoFile))
+                                    {
+                                        <img width="40" class="rounded-circle" src="/Catstagram/User/images/NotFound.png" alt="">
+                                    }
+                                    else
+                                    {
+                                        <img width="40" height="40" class="rounded-circle" src="/Catstagram/User/images/posts/@post.PostId.ToString()/@post.PhotoFile" alt="">
+                                    }
+                                </td>
+                                <td><a class="mb-2 mr-2 btn btn-primary" href="/Home/Edit/@post.PostId">Edit</a></td>
+                                <td><a class="mb-2 mr-2 btn btn-danger" href="/Home/Delete/@post.PostId">Delete</a></td>
+                            </tr>
                             }
                         </tbody>
                     </table>
