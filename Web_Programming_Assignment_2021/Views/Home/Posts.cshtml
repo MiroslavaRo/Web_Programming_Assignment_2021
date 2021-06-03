@@ -5,8 +5,8 @@
 
 @{ ViewData["Title"] = "Posts"; }
 
-<div class="app-page-title">
-    <div class="page-title-wrapper">
+<div class="app-page-title"style="background-color: rgba(221, 224, 224, 0.20)">
+    <div class="page-title-wrapper" >
         <div class="page-title-heading">
             <div class="page-title-icon">
                 <i class="pe-7s-photo icon-gradient bg-mean-fruit">
@@ -15,7 +15,7 @@
             <div>
                 Posts
                 <div class="page-title-subheading">
-                    List of all posts in my blog
+                    List of all posts in my profile
                 </div>
             </div>
         </div>
@@ -27,7 +27,7 @@
     </div>
 </div>
 
-<div class="row">
+<div class="row" >
     <div class="col-lg-12">
         <div class="main-card mb-3 card">
             <div class="card-body">
@@ -37,7 +37,7 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Comment</th>
-                                <th>Hastag</th>
+                                <th>Hastags</th>
                                 <th>Author</th>
                                 <th>Created</th>
                                 <th>Modified</th>
@@ -62,10 +62,10 @@
                                         }
                                         else
                                         {
-                                            <img width="40" class="rounded-circle" src="/Catstagram/User/images/posts/@post.PostId.ToString()/@post.PhotoFile" alt="">
+                                            <img width="40" height="40" class="rounded-circle" src="/Catstagram/User/images/posts/@post.PostId.ToString()/@post.PhotoFile" alt="">
                                         }
                                     </td>
-                                    <td><a class="mb-2 mr-2 btn btn-primary" href="/Catstagram/Edit/@post.PostId">Edit</a></td>
+                                    <td><a class="mb-2 mr-2 btn btn-primary" href="/Home/Edit/@post.PostId">Edit</a></td>
                                 </tr>
                             }
                         </tbody>

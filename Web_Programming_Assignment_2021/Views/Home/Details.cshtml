@@ -1,0 +1,77 @@
+﻿@model Web_Programming_Assignment_2021.Models.Post
+
+@{ Layout = "_Layout"; }
+
+@{ ViewData["Title"] = "Details"; }
+
+
+<style>
+    .column1 .column2{
+        float: left;
+        padding: 10px;
+        height: 300px; /* Should be removed. Only for demonstration */
+    }
+    .column1 {
+        width: 650%;
+    }
+    /* Clear floats after the columns */
+    .row:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+</style>
+<h1>Post Details</h1>
+<hr />
+<div class="row">
+    <div class="column1">
+        <dl>
+
+            <dt class="col-sm-2">
+                Author
+            </dt>
+            <dd class="col-sm-10">
+                <div class="author-avatar">
+                    <img src="/Catstagram/User/images/avatars/@Model.UserId.ToString()/@Model.User.AvatarFile" class="gallery-image" alt="">
+                </div>
+                <div class="author-nikname">@Model.User.Username</div>
+
+            </dd>
+            <dt class="col-sm-2">
+                Created:
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.DateCreated)
+            </dd>
+            <dt class="col-sm-2">
+                Modified:
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.DateModified)
+            </dd>
+            <dt class="col-sm-2">
+                Comment:
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Comment)
+            </dd>
+        </dl>
+
+        <div class="form-group">
+            <label for="@Model.Comment">Comment:</label>
+            <p asp-for="@Model.Comment" class="form-control" style="height:150px"></p>
+        </div>
+        <div class="form-group">
+            <label for="@Model.Hashtag">Hastags:</label>
+            <p asp-for="@Model.Hashtag" class="form-control" style="height:150px"></p>
+        </div>
+    </div>
+    <div class="column2" style="border-left: 1.5px solid rgba(208, 214, 219, 0.50)">
+        <img src="~/Images/ProductPhotos/@Model.PostId.ToString()/@Model.PhotoFile" width="250" height="250" />
+    </div>
+
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

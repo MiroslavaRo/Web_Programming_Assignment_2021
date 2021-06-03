@@ -4,26 +4,39 @@
 @{ ViewData["Title"] = "Catstagram"; }
 
 
-<section class="section site-portfolio">
+<section class="section site-portfolio" >
     <div class="container">
         <div class="row mb-5 align-items-center">
             <div class="col-md-12 col-lg-6 mb-4 mb-lg-0" data-aos="fade-up">
                 <h2>Catstagram</h2>
-                <p class="mb-0">The best social media</p>
+                <p class="mb-0">The best social media!</p>
+            </div>
+            <div class="col-md-12 col-lg-6 text-left text-lg-right" data-aos="fade-up" data-aos-delay="100">
+                <div id="filters" class="filters" style="font-size:17px">
+                    <a href="#" data-filter="*" class="active">All</a>
+                    <a href="#" data-filter="*">My posts</a>
+                </div>
             </div>
         </div>
         
-    <div class="gallery">
-        @foreach (var post in Model)
-        {
-            <div class="gallery-item" tabindex="0">
-
-                <img src="/Catstagram/User/images/posts/@post.PostId.ToString()/@post.PhotoFile">
-
-
+        <br />
+        <div class="gallery">
+            @foreach (var post in Model)
+            {
+            <div class="post">
+                <div class="author">
+                    <img src="/Catstagram/User/images/avatars/@post.UserId.ToString()/@post.User.AvatarFile" class="author-avatar" alt="">
+                    <p class="author-nikname">@post.User.Username</p>
+                </div>
+                <hr />
+                <div class="gallery-item" tabindex="0">
+                    <img  src="/Catstagram/User/images/posts/@post.PostId.ToString()/@post.PhotoFile" class="gallery-image" >
+                </div>
+                <hr />
+                <div class="creation-time">Posted on @post.DateCreated</div>
             </div>
-        }
-    </div>
+            }
+        </div>
        
     </div>
 </section>

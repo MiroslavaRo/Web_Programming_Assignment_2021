@@ -1,5 +1,61 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model PostEditViewModel
+
 @{
+    ViewData["Title"] = "Edit";
+}
+@{ Layout = "_Layout"; }
+
+<h1>Edit</h1>
+
+<h4>Post</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        @if (Model.SuccessMessageVisible)
+        {
+            <div class="alert alert-primary" role="alert">
+                Product saved!
+            </div>
+        }
+        @if (Model.ErrorMessageVisible)
+        {
+            <div class="alert alert-danger" role="alert">
+                Model not valid
+            </div>
+        }
+    <form asp-action="Edit">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="PostToBeEdited.PostId" />
+
+        <img src="~/Catstagram/User/images/posts/@Model.PostToBeEdited.PostId.ToString()/@Model.PostToBeEdited.PhotoFile" width="100%" />
+        <br />
+        <div class="form-group">
+            <label for="PostToBeEdited.Comment">Comment</label>
+            <textarea asp-for="PostToBeEdited.Comment" class="form-control" placeholder="Comment" style="height:150px"></textarea>
+            <span asp-validation-for="PostToBeEdited.Comment" class="text-danger"></span>
+        </div>
+        <br />
+        <div class="form-group">
+            <label for="PostToBeEdited.Hashtag">Hashtags</label>
+            <textarea asp-for="PostToBeEdited.Hashtag" class="form-control" placeholder="Hashtags" style="height:90px"></textarea>
+            <span asp-validation-for="PostToBeEdited.Hashtag" class="text-danger"></span>
+        </div>
+        <br />
+        <div> Created: @Model.PostToBeEdited.DateCreated</div>
+        <div> Edited: @Model.PostToBeEdited.DateModified</div>
+        <br />
+        <br />
+        <div class="form-group">
+            <input type="submit" value="Save" class="btn btn-primary" />
+        </div>
+    </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

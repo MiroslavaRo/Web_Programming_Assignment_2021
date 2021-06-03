@@ -16,8 +16,6 @@ a.navbar-brand {
     text-align: center;
     word-break: break-all;
 }
-*/
-/* Provide sufficient contrast against white background */
 a {
     color: #0366d6;
 }
@@ -34,7 +32,7 @@ a {
     border-color: #1861ac;
 }
 
-
+/*
 
 @media (min-width: 768px) {
     html {
@@ -59,7 +57,7 @@ button.accept-policy {
     line-height: inherit;
 }
 
-
+/*
 :root {
     font-size: 10px;
 }
@@ -87,7 +85,7 @@ img {
     margin: 0 auto;
     padding: 0 2rem;
 }
-
+    
 .btn {
     display: inline-block;
     font: inherit;

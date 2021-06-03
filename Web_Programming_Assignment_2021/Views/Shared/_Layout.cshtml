@@ -18,7 +18,7 @@
     <link href="/Site/assets/vendor/icofont/icofont.min.css" rel="stylesheet">
     <link href="/Site/assets/vendor/aos/aos.css" rel="stylesheet">
     <link href="/Site/assets/vendor/line-awesome/css/line-awesome.min.css" rel="stylesheet">
-    <link href="/Site/assets/vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet"> 
+    <link href="/Site/assets/vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">
 
     <!-- Template Main CSS File -->
     <link href="/Site/assets/css/style.css" rel="stylesheet">
@@ -26,7 +26,7 @@
 </head>
 <body>
 
-    <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
+    <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header"style=" font-size: 17px;">
         <div class="app-header header-shadow">
             <div class="app-header__logo">
                 <div class="logo-src"></div>
@@ -115,7 +115,7 @@
                         <ul class="vertical-nav-menu">
                             <li class="app-sidebar__heading">Catstagram</li>
                             <li>
-                                <a href="/Home/Index" class="ref mm-active">
+                                <a href="/Home/Index" id="ref1" class="ref" onclick="ChangeActiveRef()">
                                     <i class="metismenu-icon pe-7s-home"></i>
                                     Wall
                                 </a>
@@ -129,7 +129,7 @@
                                 </a>
                             </li>-->
                             <li>
-                                <a href="/Home/Posts" class="ref">
+                                <a href="/Home/Posts" id="ref2" class="ref" onclick="ChangeActiveRef()">
                                     <i class="metismenu-icon pe-7s-photo"></i>
                                     Posts
                                 </a>
@@ -183,9 +183,13 @@
     <script src="/Catstagram/User/script/main.js"></script>
 
     <script>
-        var links = document.getElementsByClassName("ref");
-        foreach(var link in links) {
-
+        function ChangeActiveRef() {
+           
+            var links = document.getElementsByClassName("ref");
+            for (j = 0; j < links.length; j++) {
+                links[j].classList.remove("mm-active");
+            }
+            this.classList.add("mm-active");
         }
     </script>
 
