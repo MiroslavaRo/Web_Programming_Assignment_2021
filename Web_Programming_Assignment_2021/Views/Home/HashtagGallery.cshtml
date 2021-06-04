@@ -10,34 +10,41 @@
                 <h2>Catstagram</h2>
                 <p class="mb-0">The best social media!</p>
             </div>
-            <br />
-            <div class="gallery">
-                @foreach (var post in Model)
-                {
-                    <div class="post">
-                        <div class="author">
-                            @if (post.User.AvatarFile != null)
-                            {
-                                <img src="/Catstagram/User/images/avatars/@post.UserId.ToString()/@post.User.AvatarFile" class="author-avatar" alt="">
-                            }
-                            else
-                            {
-                                <img src="/Catstagram/User/images/noavatar.png" class="author-avatar" alt="">
-                            }
-                            <p class="author-nikname">@post.User.Username</p>
-                        </div>
-                        <hr />
-                        <div class="gallery-item" tabindex="0">
-                            <a href="/Home/Details/@post.PostId">
-                                <img src="/Catstagram/User/images/posts/@post.PostId.ToString()/@post.PhotoFile" class="gallery-image">
-                            </a>
-
-                        </div>
-                        <hr />
-                        <div class="creation-time">Posted on @post.DateCreated</div>
-                    </div>
-                }
+            <div class="col-md-12 col-lg-6 text-left text-lg-right" data-aos="fade-up" data-aos-delay="100">
+                <div id="filters" class="filters" style="font-size:17px">
+                    <a href="#" data-filter="*" class="active"></a>
+                    <a href="#" data-filter="*"></a>
+                </div>
             </div>
+        </div>
+        <br />
+        <div class="gallery">
+            @foreach (var post in Model)
+            {
+                
+                <div class="post">
+                    <div class="author">
+                        @if (post.User.AvatarFile != null)
+                        {
+                            <img src="/Catstagram/User/images/avatars/@post.UserId.ToString()/@post.User.AvatarFile" class="author-avatar" alt="">
+                        }
+                        else
+                        {
+                            <img src="/Catstagram/User/images/noavatar.png" class="author-avatar" alt="">
+                        }
+                        <p class="author-nikname">@post.User.Username</p>
+                    </div>
+                    <hr />
+                    <div class="gallery-item" tabindex="0">
+                        <a href="/Home/Details/@post.PostId">
+                            <img src="/Catstagram/User/images/posts/@post.PostId.ToString()/@post.PhotoFile" class="gallery-image">
+                        </a>
+
+                    </div>
+                    <hr />
+                    <div class="creation-time">Posted on @post.DateCreated</div>
+                </div>
+            }
         </div>
     </div>
 </section>

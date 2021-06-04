@@ -55,7 +55,9 @@
                                 <td>
                                     @foreach (var hastag in post.Hashtag.Split('#', ' ', ','))
                                     {
-                                    <a href="/Home/HashtagGallery/@hastag">@hastag</a>
+                                        <a href="/Home/HashtagGallery/@hastag.ToString()">@hastag.ToString()</a>
+
+                                    
                                     }
                                 </td>
                                
