@@ -36,13 +36,20 @@ namespace Web_Programming_Assignment_2021.Controllers
         }
         public ActionResult Index()
         {
-            List<Post> posts = context.Posts.Include(a => a.User).OrderBy(a => a.DateCreated).ToList();
+            List<Post> posts = context.Posts.Include(a => a.User).OrderByDescending(a => a.DateCreated ).ToList();
+            return View(posts);
+        }
+        public ActionResult HashtagGalery(string hashtag)
+        {
+            List<Post> posts = context.Posts.Include(a => a.User).OrderByDescending(a => a.DateCreated).Where(a=>a.Hashtag.Contains(hashtag)).ToList();
             return View(posts);
         }
 
+        [Authorize]
         public ActionResult Posts()
         {
-            List<Post> posts = context.Posts.Include(a => a.User).OrderBy(a => a.DateCreated).ToList();
+            List<Post> posts = context.Posts.Include(a => a.User).OrderByDescending(a => a.DateCreated).Where(a=>a.User.Username==this.HttpContext.User.Identity.Name).ToList();
+           
             return View(posts);
         }
 
@@ -56,7 +63,7 @@ namespace Web_Programming_Assignment_2021.Controllers
 
         }
 
-      //  [Authorize]
+        [Authorize]
         public IActionResult Edit(int id)
         {
             CultureInfo cultureInfo = CultureInfo.CurrentCulture;
@@ -87,7 +94,7 @@ namespace Web_Programming_Assignment_2021.Controllers
                 originalPost.Hashtag = editedPost.Hashtag;
                 editedPost.PhotoFile = originalPost.PhotoFile;
                 editedPost.DateCreated = originalPost.DateCreated;
-                originalPost.DateModified= editedPost.DateModified= DateTime.Now;
+                originalPost.DateModified = editedPost.DateModified = DateTime.UtcNow;
 
 
                 viewModel.SuccessMessageVisible = true;
@@ -96,7 +103,7 @@ namespace Web_Programming_Assignment_2021.Controllers
             return View(viewModel);
         } 
         
-       // [Authorize]
+        [Authorize]
         public IActionResult Create()
         {
             PostCreateViewModel createProductViewModel = new PostCreateViewModel();
@@ -108,24 +115,25 @@ namespace Web_Programming_Assignment_2021.Controllers
         public IActionResult Create(PostCreateViewModel model)
         {
 
-            model.CreatedOn = DateTime.Now;
-            model.EditedOn = DateTime.Now;
+            model.CreatedOn = DateTime.UtcNow;
+            model.EditedOn = DateTime.UtcNow;
             model.UserName = this.HttpContext.User.Identity.Name;
 
             Post post = new Post();
             post.Comment = model.Comment;
-            post.Hashtag = model.Hashtag;
+            /*
+            var hashtags = model.Hashtag.Split(' ', '#', ',');
+            post.Hashtag = hashtags.ToList();*/
             post.DateCreated = model.CreatedOn;
             post.DateModified = model.EditedOn;
-            //  post.UserId = context.Users.FirstOrDefault(a => a.Username == model.UserName).UserId;
-            post.UserId = context.Users.FirstOrDefault(a => a.Username == "LolitaKit").UserId;
+            post.UserId = context.Users.FirstOrDefault(a => a.Username == model.UserName).UserId;
             context.Posts.Add(post);
             context.SaveChanges();
 
             var photo = model.photo;
-            if (photo != null&&photo.Length<(2*1024))
+            if (photo != null && photo.Length < (2 * 1024 * 1024))
             {
-                    model.ErrorMessageVisible = false;
+                model.ErrorMessageVisible = false;
                     string wwwRootPath = hostEnvironment.WebRootPath;
                     string imagesPath = configuration.GetValue<string>("PostLocation");
 
@@ -143,25 +151,23 @@ namespace Web_Programming_Assignment_2021.Controllers
                         photo.CopyTo(fileStream);
                     }
 
-
                     context.SaveChanges();
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Posts");
                 
-               
             }
             else
             {
-            
+                model.ErrorMessageVisible = true;
                 context.Posts.Remove(context.Posts.FirstOrDefault(a => a == post));
                 context.SaveChanges();
-                model.ErrorMessageVisible = true;
+              
                 return View(model);
             }
 
         }
 
         
-       // [Authorize]
+        [Authorize]
 
         public ActionResult Delete(int id)
         {

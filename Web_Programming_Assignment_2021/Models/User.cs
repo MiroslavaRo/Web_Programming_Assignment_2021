@@ -20,6 +20,7 @@ namespace Web_Programming_Assignment_2021.Models
         public string Password { get; set; }
 
         public string AvatarFile { get; set; }
+        public string Status { get; set; }
 
         public string Message { get; set; }
         public string Email { get; set; }

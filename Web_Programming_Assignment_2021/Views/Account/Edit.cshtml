@@ -1,0 +1,69 @@
+﻿@model EditProfileViewModel
+
+@{
+    ViewData["Title"] = "Edit Profile";
+}
+@{ Layout = "_Layout"; }
+
+<h1>Edit Profile</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        @if (Model.SuccessMessageVisible)
+        {
+            <div class="alert alert-primary" role="alert">
+                Updated!
+            </div>
+        }
+        @if (Model.ErrorMessageVisible)
+        {
+            <div class="alert alert-danger" role="alert">
+               Not valid
+            </div>
+        }
+    <form enctype="multipart/form-data" asp-action="Edit">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="ProfileToBeEdited.UserId" />
+
+        <img src="~/Catstagram/User/images/avatars/@Model.ProfileToBeEdited.UserId.ToString()/@Model.ProfileToBeEdited.AvatarFile" width="100%" />
+        <br />
+        <label asp-for="AvatarChange" class="control-label"><b>Change Avatar</b></label>
+        <input type="file" asp-for="AvatarChange" class="form-control-file" id="fileUpload" />
+        <span asp-validation-for="AvatarChange" class="text-danger"></span>
+        
+        <br />
+        <div class="form-group">
+            <label asp-for="ProfileToBeEdited.Status"><b>Status</b></label>
+            <textarea asp-for="ProfileToBeEdited.Status" class="form-control" placeholder="User Name"></textarea>
+            <span asp-validation-for="ProfileToBeEdited.Status" class="text-danger"></span>
+        </div>
+        <br />
+        <div class="form-group">
+            <label asp-for="ProfileToBeEdited.Email"><b>Email</b></label>
+            <input disabled asp-for="ProfileToBeEdited.Email" class="form-control" placeholder="Email" >
+            <span asp-validation-for="ProfileToBeEdited.Email" class="text-danger"></span>
+        </div>
+        <br />
+        <div class="form-group">
+            <label asp-for="Password"><b>Password</b></label>
+            <input asp-for="Password" class="form-control" placeholder="Password">
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+
+        <br />
+        <br />
+        <div class="form-group">
+            <input type="submit" value="Save" class="btn btn-primary" />
+        </div>
+    </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Posts" asp-controller="home">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

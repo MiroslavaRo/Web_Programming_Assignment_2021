@@ -17,8 +17,9 @@ namespace Web_Programming_Assignment_2021.ViewModels
         public string Hashtag { get; set; }
 
         [Display(Name = "Photo")]
-        [Required(ErrorMessage = "Please Enter Upload photo..")]  
+        [Required(ErrorMessage = "Please Enter Upload photo..")] 
         public IFormFile photo { get; set; }
+
 
         public bool ErrorMessageVisible { get; set; }
 

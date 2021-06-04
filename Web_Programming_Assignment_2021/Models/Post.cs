@@ -13,7 +13,7 @@ namespace Web_Programming_Assignment_2021.Models
         public string Comment { get; set; }
         public string PhotoFile { get; set; }   
         public string Hashtag { get; set; }
-
+       // public List<string> Hashtag { get; set; }
 
         public DateTime DateCreated { get; set; }
         public DateTime DateModified { get; set; }

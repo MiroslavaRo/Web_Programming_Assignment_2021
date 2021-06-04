@@ -65,15 +65,15 @@
                 @if (User.Identity.IsAuthenticated)
                 {
                     <div>
-                        Hello, @User.Identity.Name!
-                        <a asp-action="Logout" asp-controller="accounts">Logout</a>
+                           Hello, @User.Identity.Name!
+                        <a  class="btn-log" asp-action="Logout" asp-controller="account">Logout</a>
                     </div>
                 }
                 else
                 {
-                    <a class="btn-log" asp-action="Login" asp-controller="accounts">Login</a>
+                    <a class="btn-log" asp-action="Login" asp-controller="account">Login</a>
 
-                    <a class="btn-reg" asp-action="Register" asp-controller="accounts">Register</a>
+                    <a class="btn-reg" asp-action="Register" asp-controller="account">Register</a>
                 }
             </div>
         </div>
@@ -115,21 +115,21 @@
                         <ul class="vertical-nav-menu">
                             <li class="app-sidebar__heading">Catstagram</li>
                             <li>
-                                <a href="/Home/Index" id="ref1" class="ref" onclick="ChangeActiveRef()">
+                                <a href="/Home/Index">
                                     <i class="metismenu-icon pe-7s-home"></i>
                                     Wall
                                 </a>
                             </li>
                             <li class="app-sidebar__heading">My Profile</li>
-                          <!--
+                          
                             <li>
-                                <a href="/Home/Posts">
-                                    <i class="metismenu-icon pe-7s-portfolio"></i>
+                                <a href="/Account/Profile">
+                                    <i class="metismenu-icon pe-7s-camera"></i>
                                     Profile
                                 </a>
-                            </li>-->
+                            </li>
                             <li>
-                                <a href="/Home/Posts" id="ref2" class="ref" onclick="ChangeActiveRef()">
+                                <a href="/Home/Posts" >
                                     <i class="metismenu-icon pe-7s-photo"></i>
                                     Posts
                                 </a>

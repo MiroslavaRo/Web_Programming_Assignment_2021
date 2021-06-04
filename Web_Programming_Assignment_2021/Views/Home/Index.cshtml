@@ -25,7 +25,14 @@
             {
             <div class="post">
                 <div class="author">
-                    <img src="/Catstagram/User/images/avatars/@post.UserId.ToString()/@post.User.AvatarFile" class="author-avatar" alt="">
+                    @if (post.User.AvatarFile != null)
+                    {
+                        <img src="/Catstagram/User/images/avatars/@post.UserId.ToString()/@post.User.AvatarFile" class="author-avatar" alt="">
+                    }
+                    else
+                    {
+                        <img src="/Catstagram/User/images/noavatar.png" class="author-avatar" alt="">
+                    }
                     <p class="author-nikname">@post.User.Username</p>
                 </div>
                 <hr />

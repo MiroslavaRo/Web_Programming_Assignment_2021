@@ -46,9 +46,14 @@
             </tr>
 
             <tr>
+               
                 <td colspan="2">
-                    @Html.DisplayFor(model => model.Hashtag)
+                    @foreach (var hastag in Model.Hashtag.Split('#',' ',','))
+                                    {
+                    <a href="/Home/HashtagGallery/@hastag">@hastag</a>
+                    }
                 </td>
+                    
             </tr>
         </table>
 

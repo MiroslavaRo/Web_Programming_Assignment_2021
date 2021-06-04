@@ -21,8 +21,14 @@
                     <div class="profile">
 
                         <div class="profile-image">
-
-                            <img src="/Catstagram/User/images/avatars/@Model.UserId.ToString()/@Model.User.AvatarFile" style="width:250px">
+                            @if (Model.User.AvatarFile != null)
+                            {
+                                <img src="/Catstagram/User/images/avatars/@Model.UserId.ToString()/@Model.User.AvatarFile" style="height: 250px; width: 250px">
+                            }
+                            else
+                            {
+                                <img src="/Catstagram/User/images/noavatar.png" style="width:250px">
+                            }
 
                         </div>
 
@@ -34,7 +40,7 @@
                         <div class="profile-bio">
 
                             <h1 class="profile-user-name">@Model.User.Email</h1>
-                            <p><span class="profile-real-name">Jane Doe</span> Lorem ipsum dolor sit, amet consectetur adipisicing elit 📷✈️🏕️</p>
+                            <p><span class="profile-real-name">Status: </span>@Model.User.Status</p>
 
                         </div>
 
@@ -80,7 +86,10 @@
 
                             <tr>
                                 <td colspan="2">
-                                    @Html.DisplayFor(model => model.Hashtag)
+                                    @foreach (var hastag in Model.Hashtag.Split('#',' ',','))
+                                    {
+                                        <a href="/Home/HashtagGallery/@hastag">@hastag</a>
+                                    }
                                 </td>
                             </tr>
                         </table>

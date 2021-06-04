@@ -51,7 +51,14 @@
                             <tr>
                                 <td>@post.PostId</td>
                                 <td>@post.Comment</td>
-                                <td>@post.Hashtag</td>
+                                
+                                <td>
+                                    @foreach (var hastag in post.Hashtag.Split('#', ' ', ','))
+                                    {
+                                    <a href="/Home/HashtagGallery/@hastag">@hastag</a>
+                                    }
+                                </td>
+                               
                                 <td>@post.User.Username</td>
                                 <td>@post.DateCreated</td>
                                 <td>@post.DateModified</td>

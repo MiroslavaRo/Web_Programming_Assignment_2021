@@ -30,15 +30,16 @@
         <img src="~/Catstagram/User/images/posts/@Model.PostToBeEdited.PostId.ToString()/@Model.PostToBeEdited.PhotoFile" width="100%" />
         <br />
         <div class="form-group">
-            <label for="PostToBeEdited.Comment">Comment</label>
+            <label asp-for="PostToBeEdited.Comment">Comment</label>
             <textarea asp-for="PostToBeEdited.Comment" class="form-control" placeholder="Comment" style="height:150px"></textarea>
             <span asp-validation-for="PostToBeEdited.Comment" class="text-danger"></span>
         </div>
         <br />
         <div class="form-group">
-            <label for="PostToBeEdited.Hashtag">Hashtags</label>
+            <label asp-for="PostToBeEdited.Hashtag">Hashtags</label>
             <textarea asp-for="PostToBeEdited.Hashtag" class="form-control" placeholder="Hashtags" style="height:90px"></textarea>
             <span asp-validation-for="PostToBeEdited.Hashtag" class="text-danger"></span>
+            <!-- <textarea asp-for="PostToBeEdited.Hashtag.ToString().Trim('#')" class="form-control" placeholder="Hashtags" style="height:110px"></textarea>-->
         </div>
         <br />
         <div> Created: @Model.PostToBeEdited.DateCreated</div>
