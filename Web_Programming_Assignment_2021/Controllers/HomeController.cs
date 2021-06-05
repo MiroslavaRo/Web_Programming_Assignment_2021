@@ -14,7 +14,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Web_Programming_Assignment_2021.Data;
 using Web_Programming_Assignment_2021.Models;
-using Web_Programming_Assignment_2021.ViewModels;
+using Web_Programming_Assignment_2021.ViewModels.Post;
 
 namespace Web_Programming_Assignment_2021.Controllers
 {
@@ -36,22 +36,18 @@ namespace Web_Programming_Assignment_2021.Controllers
         }
         public ActionResult Index()
         {
-            List<Post> posts = context.Posts.Include(a => a.User).OrderByDescending(a => a.DateCreated ).ToList();
+            List<Post> posts = context.Posts.Include(a => a.User).OrderByDescending(a => a.DateCreated).ToList();
             return View(posts);
         }
-        public ActionResult HashtagGallery(string hashtag)
+        public ActionResult HashtagGallery(string tag)
         {
-            List<Post> filtered = new List<Post>();
-            List<Post> posts = context.Posts.Include(a => a.User).OrderByDescending(a => a.DateCreated).ToList();
-       foreach(var post in posts)
-            {
-                if (post.Hashtag.Contains(hashtag))
-                {
-                    filtered.Add(post);
-                }
-            }
-            return View(filtered);
+            List<Post> posts = context.Posts.Include(a => a.User).OrderByDescending(a => a.DateCreated).Where(a=>a.Hashtag.Contains(tag)).ToList();
+            
+
+            return View(posts);
+
         }
+
 
         [Authorize]
         public ActionResult Posts()
@@ -129,6 +125,7 @@ namespace Web_Programming_Assignment_2021.Controllers
 
             Post post = new Post();
             post.Comment = model.Comment;
+            post.Hashtag = model.Hashtag;
             /*
             var hashtags = model.Hashtag.Split(' ', '#', ',');
             post.Hashtag = hashtags.ToList();*/

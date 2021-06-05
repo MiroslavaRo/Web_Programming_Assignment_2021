@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Web_Programming_Assignment_2021.ViewModels.Account
+namespace Web_Programming_Assignment_2021.ViewModels.Accounts
 {
     public class RegisterViewModel
     {
@@ -22,13 +22,13 @@ namespace Web_Programming_Assignment_2021.ViewModels.Account
 
         public bool ErrorMessageVisible { get; set; }
 
-        public IFormFile Avatar { get; set; }
+      //  public IFormFile Avatar { get; set; }
 
         public string Status { get; set; }
 
-        [Required(ErrorMessage = "Please Confirm Email...")]
+        [Required(ErrorMessage = "Please Enter Email...")]
         public string Email { get; set; }
-        public string Message { get; set; }
+       // public string Message { get; set; }
 
     }
 }

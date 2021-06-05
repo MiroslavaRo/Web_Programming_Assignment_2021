@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Web_Programming_Assignment_2021.ViewModels
+namespace Web_Programming_Assignment_2021.ViewModels.Post
 {
     public class PostCreateViewModel
     {

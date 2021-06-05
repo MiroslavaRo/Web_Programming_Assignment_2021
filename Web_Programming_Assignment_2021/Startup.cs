@@ -28,14 +28,20 @@ namespace Web_Programming_Assignment_2021
         public void ConfigureServices(IServiceCollection services)
         {
             // AUTHENTICATION: Enable cookie authentication
-            services
+          /*  services
                 .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-                .AddCookie();
+                .AddCookie();*/
 
             services
                 .AddControllersWithViews();
             services.AddDbContext<CatstagramContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("CatstagramConnectionString")));
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
+            {
+                options.LoginPath = "/accounts/login";
+                options.AccessDeniedPath = "/accounts/login";
+            });
+
 
         }
 

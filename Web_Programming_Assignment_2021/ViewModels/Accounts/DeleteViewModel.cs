@@ -1,16 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using Web_Programming_Assignment_2021.Models;
 
-namespace Web_Programming_Assignment_2021.ViewModels.Post
+namespace Web_Programming_Assignment_2021.ViewModels.Accounts
 {
-    public class PostEditViewModel
+    public class DeleteViewModel
     {
-        public Models.Post PostToBeEdited { get; set; }
+        public User ProfileToBeDeleted{ get; set; }
 
-        public bool SuccessMessageVisible { get; set; }
+
+
         public bool ErrorMessageVisible { get; set; }
     }
 }

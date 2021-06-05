@@ -18,6 +18,7 @@
             </ul>
             <div class="tab-content">
                 <div class="tab-pane fade " id="author">
+                    
                     <div class="profile">
 
                         <div class="profile-image">
@@ -83,15 +84,17 @@
                                     Hastags:
                                 </th>
                             </tr>
+                            @foreach (var tag in Model.Hashtag.ToString().Split(' '))
+                            {
+                                <tr>
+                                    <td colspan="2">
+                                        <a href="/Home/HashtagGallery/@tag.Trim('#')">@tag</a>
+                                    </td>
 
-                            <tr>
-                                <td colspan="2">
-                                    @foreach (var hastag in Model.Hashtag.Split('#',' ',','))
-                                    {
-                                        <a href="/Home/HashtagGallery/@hastag">@hastag</a>
-                                    }
-                                </td>
-                            </tr>
+
+                                </tr>
+                            }
+
                         </table>
 
                     </div>

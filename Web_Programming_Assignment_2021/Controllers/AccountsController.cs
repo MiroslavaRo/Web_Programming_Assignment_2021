@@ -13,18 +13,18 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Web_Programming_Assignment_2021.Data;
 using Web_Programming_Assignment_2021.Models;
-using Web_Programming_Assignment_2021.ViewModels.Account;
+using Web_Programming_Assignment_2021.ViewModels.Accounts;
 
 namespace Web_Programming_Assignment_2021.Controllers
 {
     
-    public class AccountController : Controller
+    public class AccountsController : Controller
     {
         private CatstagramContext context;
         private readonly IConfiguration configuration;
         private IWebHostEnvironment hostEnvironment;
 
-        public AccountController(CatstagramContext context, IConfiguration configuration, IWebHostEnvironment hostEnvironment)
+        public AccountsController(CatstagramContext context, IConfiguration configuration, IWebHostEnvironment hostEnvironment)
         {
             this.context = context;
             this.configuration = configuration;
@@ -36,6 +36,9 @@ namespace Web_Programming_Assignment_2021.Controllers
             User user = context.Users.FirstOrDefault(a => a.Username == this.HttpContext.User.Identity.Name);
             return View(user);
         }
+
+
+        /*
         public IActionResult Register()
         {
             RegisterViewModel registerViewModel = new RegisterViewModel();
@@ -47,63 +50,61 @@ namespace Web_Programming_Assignment_2021.Controllers
         [HttpPost]
         public IActionResult Register(RegisterViewModel model)
         {
-            List<User> users = context.Users.ToList();
-
-            foreach (var u in users)
-            {
-                if (u.Username == model.Username|| u.Password == model.Password)
-                {
-                    model.ErrorMessageVisible = true;
-                    return RedirectToAction("Register");
-                }
-            }
-
             User user = new User();
             user.Password = model.Password;
             user.Username = model.Username;
             user.Email = model.Email;
             user.Status = model.Status;
+            user.AvatarFile = null;
             context.Users.Add(user);
             context.SaveChanges();
-            //user.AvatarFile
-            var photo = model.Avatar;
-            if(photo != null)
+
+            return RedirectToAction("Login");
+        }*/
+
+
+        public IActionResult Register()
+        {
+            RegisterViewModel registerViewModel = new RegisterViewModel();
+
+            return View(registerViewModel);
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> Register(RegisterViewModel model)
+        {
+            List<User> users = context.Users.ToList();
+
+            foreach (var u in users)
             {
-                if (photo.Length < (2 * 1024 * 1024))
-                {
-                    model.ErrorMessageVisible = false;
-                    string wwwRootPath = hostEnvironment.WebRootPath;
-                    string imagesPath = configuration.GetValue<string>("AvatarLocation");
-
-                    string directoryPath = Path.Combine(imagesPath, user.UserId.ToString());
-                    if (!Directory.Exists(directoryPath))
-                    {
-                        Directory.CreateDirectory(directoryPath);
-                    }
-
-                    string fileName = string.Format($"{Path.GetFileNameWithoutExtension(Path.GetRandomFileName())}.jpg");
-                    context.Users.FirstOrDefault(a => a == user).AvatarFile = fileName;
-                    string filePath = Path.Combine(directoryPath, fileName);
-                    using (Stream fileStream = new FileStream(filePath, FileMode.Create))
-                    {
-                        photo.CopyTo(fileStream);
-                    }
-                }
-                else
+                if (u.Username == model.Username)
                 {
                     model.ErrorMessageVisible = true;
-                    context.Users.Remove(context.Users.FirstOrDefault(a => a == user));
-                    context.SaveChanges();
-                    return View("Register");
+                    return RedirectToAction("Register");
+                }
+                if (u.Password == model.Password)
+                {
+                    model.ErrorMessageVisible = true;
+                    return RedirectToAction("Register");
                 }
             }
-            else
-            {
-                user.AvatarFile = null;
-            }
-            model.ErrorMessageVisible = false;
+            User user = new User();
+            user.Password = model.Password;
+            user.Username = model.Username;
+            user.Email = model.Email;
+            user.Status = model.Status;
+            user.AvatarFile = null;
+            context.Users.Add(user);
             context.SaveChanges();
-            return RedirectToAction("Account", "Profile");
+            var identity = new ClaimsIdentity(new[] {
+                    new Claim(ClaimTypes.Name, user.Username)
+                    }, CookieAuthenticationDefaults.AuthenticationScheme);
+
+            var principal = new ClaimsPrincipal(identity);
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+
+            return RedirectToAction("Index", "Home");
         }
 
         public IActionResult Login()
@@ -214,21 +215,30 @@ namespace Web_Programming_Assignment_2021.Controllers
 
 
 
-        /*
+        
         [Authorize]
         public IActionResult Delete()
         {
             User user = context.Users.FirstOrDefault(a => a.Username == this.HttpContext.User.Identity.Name);
-            return View(user);
+
+            DeleteViewModel deleteViewModel = new DeleteViewModel();
+            deleteViewModel.ProfileToBeDeleted = user;
+
+            return View(deleteViewModel);
         }
         [HttpPost]
-        public IActionResult Delete(User user)
+        public IActionResult Delete(DeleteViewModel u)
         {
-            User userToDelete = context.Users.FirstOrDefault(a => a.UserId == user.UserId);
+            User User = context.Users.FirstOrDefault(a => a.Username == this.HttpContext.User.Identity.Name);
 
+            DeleteViewModel user = new DeleteViewModel();
+            user.ProfileToBeDeleted = User;
+            User deleteUser = user.ProfileToBeDeleted;
+            User originalUser = context.Users.FirstOrDefault(a => a.Username == this.HttpContext.User.Identity.Name);
+           
             string imagesPath = configuration.GetValue<string>("AvatarLocation");
 
-            string directoryPath = Path.Combine(imagesPath, user.UserId.ToString());
+            string directoryPath = Path.Combine(imagesPath, user.ProfileToBeDeleted.UserId.ToString());
             if (Directory.Exists(directoryPath))
             {
                 var files = Directory.GetFiles(directoryPath);
@@ -238,12 +248,37 @@ namespace Web_Programming_Assignment_2021.Controllers
                 }
                 Directory.Delete(directoryPath);
             }
-            context.Users.Remove(userToDelete);
+           
+
+            List<Post> posts = context.Posts.Where(a=>a.User.Username==deleteUser.Username).ToList();
+            foreach(var post in posts)
+            {
+                Post postToDelete = context.Posts.FirstOrDefault(a => a.PostId == post.PostId);
+
+                string imagespath = configuration.GetValue<string>("PostLocation");
+
+                string directorypath = Path.Combine(imagespath, post.PostId.ToString());
+                if (Directory.Exists(directorypath))
+                {
+                    var files = Directory.GetFiles(directorypath);
+                    foreach (var file in files)
+                    {
+                        System.IO.File.Delete(file);
+                    }
+                    Directory.Delete(directorypath);
+                }
+                context.Posts.Remove(postToDelete);
+                context.SaveChanges();
+            }
+            
+            
+           
+            context.Users.Remove(originalUser);
             context.SaveChanges();
             HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Index", "Home");
         }
-        */
+        
     }
     
 }

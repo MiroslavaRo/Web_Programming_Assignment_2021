@@ -46,14 +46,14 @@
             </tr>
 
             <tr>
-               
                 <td colspan="2">
-                    @foreach (var hastag in Model.Hashtag.Split('#',' ',','))
-                                    {
-                    <a href="/Home/HashtagGallery/@hastag">@hastag</a>
+                    @foreach (var tag in Model.Hashtag.ToString().Split(' '))
+                    {
+
+                        <a href="/Home/HashtagGallery/@tag.Trim('#')">@tag</a>
+
                     }
                 </td>
-                    
             </tr>
         </table>
 

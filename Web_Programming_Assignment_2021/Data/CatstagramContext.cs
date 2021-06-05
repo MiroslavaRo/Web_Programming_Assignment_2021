@@ -29,6 +29,7 @@ namespace Web_Programming_Assignment_2021.Data
                       AvatarFile = "flower.jpg",
                       Status= "Love my life 😍"
                   });
+
             modelBuilder.Entity<User>()
                .HasData(new User
                {
@@ -58,7 +59,6 @@ namespace Web_Programming_Assignment_2021.Data
                     PostId=1,
                     Comment = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam necessitatibus incidunt ut officiis explicabo inventore.",
                     Hashtag =  "#cute #cutie #kitty #pretty" ,
-                   // Hashtag = { "#cute", "#cutie", "#kitty","#pretty" },
                     DateCreated = DateTime.UtcNow,
                     DateModified = DateTime.UtcNow,
                     PhotoFile = "img2.jpg",
@@ -71,7 +71,6 @@ namespace Web_Programming_Assignment_2021.Data
                     PostId=2,
                     Comment = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam necessitatibus incidunt ut officiis explicabo inventore.",
                     Hashtag =  "#cute #happy" ,
-                   // Hashtag = { "#cute","#happy" },
                     DateCreated = DateTime.UtcNow,
                     DateModified = DateTime.UtcNow,
                     PhotoFile = "flower.jpg",
@@ -96,7 +95,6 @@ namespace Web_Programming_Assignment_2021.Data
                    PostId = 4,
                    Comment = "Ipsum dolor sit amet consectetur adipisicing elit.",
                    Hashtag = "#smile #happy",
-                   // Hashtag = {"#smile","#happy"},
                    DateCreated = DateTime.UtcNow,
                    DateModified = DateTime.UtcNow,
                    PhotoFile = "smile.jpg",
