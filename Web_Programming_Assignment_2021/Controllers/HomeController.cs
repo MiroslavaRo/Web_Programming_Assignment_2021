@@ -39,9 +39,9 @@ namespace Web_Programming_Assignment_2021.Controllers
             List<Post> posts = context.Posts.Include(a => a.User).OrderByDescending(a => a.DateCreated).ToList();
             return View(posts);
         }
-        public ActionResult HashtagGallery(string tag)
+        public ActionResult HashtagGallery(string id)
         {
-            List<Post> posts = context.Posts.Include(a => a.User).OrderByDescending(a => a.DateCreated).Where(a=>a.Hashtag.Contains(tag)).ToList();
+            List<Post> posts = context.Posts.Include(a => a.User).OrderByDescending(a => a.DateCreated).Where(a=>a.Hashtag.Contains(id)).ToList();
             
 
             return View(posts);
